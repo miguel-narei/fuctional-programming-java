@@ -1,0 +1,123 @@
+ ########################################################################
+  http://localhost:8080/all-async/purchases
+ ########################################################################
+
+ ~/projects/fuctional-programming-java ? ? main �? ? k6 run k6/k6.js
+
+          /\      |??| /??/   /??/
+     /\  /  \     |  |/  /   /  /
+    /  \/    \    |     (   /   ??\
+   /          \   |  |\  \ |  (?)  |
+  / __________ \  |__| \__\ \_____/ .io
+
+  execution: local
+     script: k6/k6.js
+     output: -
+
+  scenarios: (100.00%) 1 scenario, 100 max VUs, 40s max duration (incl. graceful stop):
+           * default: 100 looping VUs for 10s (gracefulStop: 30s)
+
+
+     data_received..................: 39 kB 1.4 kB/s
+     data_sent......................: 30 kB 1.1 kB/s
+     http_req_blocked...............: avg=1.1ms    min=3탎   med=346탎   max=5.49ms p(90)=4.05ms p(95)=4.67ms
+     http_req_connecting............: avg=1.01ms   min=0s    med=288탎   max=5.45ms p(90)=4.02ms p(95)=4.63ms
+     http_req_duration..............: avg=12.14s   min=1.21s med=10.89s  max=26.63s p(90)=22.99s p(95)=25.41s
+       { expected_response:true }...: avg=12.14s   min=1.21s med=10.89s  max=26.63s p(90)=22.99s p(95)=25.41s
+     http_req_failed................: 0.00% ? 0        ? 156
+     http_req_receiving.............: avg=246.01탎 min=32탎  med=126.5탎 max=1.04ms p(90)=533탎  p(95)=643.5탎
+     http_req_sending...............: avg=722.23탎 min=15탎  med=56.99탎 max=4.55ms p(90)=2.79ms p(95)=3.07ms
+     http_req_tls_handshaking.......: avg=0s       min=0s    med=0s      max=0s     p(90)=0s     p(95)=0s
+     http_req_waiting...............: avg=12.14s   min=1.21s med=10.89s  max=26.63s p(90)=22.99s p(95)=25.41s
+     http_reqs......................: 156   5.603222/s
+     iteration_duration.............: avg=12.14s   min=1.21s med=10.89s  max=26.63s p(90)=22.99s p(95)=25.41s
+     iterations.....................: 156   5.603222/s
+     vus............................: 2     min=2      max=100
+     vus_max........................: 100   min=100    max=100
+
+
+running (27.8s), 000/100 VUs, 156 complete and 0 interrupted iterations
+default ? [======================================] 100 VUs  10s
+
+ ########################################################################
+  http://localhost:8080/sync/purchases
+ ########################################################################
+
+ ~/projects/fuctional-programming-java ? ? main �? ? k6 run k6/k6.js
+
+          /\      |??| /??/   /??/
+     /\  /  \     |  |/  /   /  /
+    /  \/    \    |     (   /   ??\
+   /          \   |  |\  \ |  (?)  |
+  / __________ \  |__| \__\ \_____/ .io
+
+  execution: local
+     script: k6/k6.js
+     output: -
+
+  scenarios: (100.00%) 1 scenario, 100 max VUs, 40s max duration (incl. graceful stop):
+           * default: 100 looping VUs for 10s (gracefulStop: 30s)
+
+
+     data_received..................: 224 kB 20 kB/s
+     data_sent......................: 170 kB 16 kB/s
+     http_req_blocked...............: avg=469.3탎  min=1탎  med=3탎   max=6.67ms  p(90)=1.7ms   p(95)=4.66ms
+     http_req_connecting............: avg=221.34탎 min=0s   med=0s    max=2.85ms  p(90)=1.17ms  p(95)=2.11ms
+     http_req_duration..............: avg=1.21s    min=1.2s med=1.21s max=1.24s   p(90)=1.22s   p(95)=1.23s
+       { expected_response:true }...: avg=1.21s    min=1.2s med=1.21s max=1.24s   p(90)=1.22s   p(95)=1.23s
+     http_req_failed................: 0.00%  ? 0         ? 900
+     http_req_receiving.............: avg=180.29탎 min=16탎 med=50탎  max=15.65ms p(90)=153.2탎 p(95)=271탎
+     http_req_sending...............: avg=32.35탎  min=7탎  med=20탎  max=550탎   p(90)=60탎    p(95)=111.04탎
+     http_req_tls_handshaking.......: avg=0s       min=0s   med=0s    max=0s      p(90)=0s      p(95)=0s
+     http_req_waiting...............: avg=1.21s    min=1.2s med=1.21s max=1.24s   p(90)=1.22s   p(95)=1.23s
+     http_reqs......................: 900    81.826751/s
+     iteration_duration.............: avg=1.21s    min=1.2s med=1.21s max=1.24s   p(90)=1.23s   p(95)=1.23s
+     iterations.....................: 900    81.826751/s
+     vus............................: 41     min=41      max=100
+     vus_max........................: 100    min=100     max=100
+
+
+running (11.0s), 000/100 VUs, 900 complete and 0 interrupted iterations
+default ? [======================================] 100 VUs  10s
+
+
+ ########################################################################
+  http://localhost:8080/async-just-controller/purchases
+ ########################################################################
+
+ ~/projects/fuctional-programming-java ? ? main �? ? k6 run k6/k6.js
+
+          /\      |??| /??/   /??/
+     /\  /  \     |  |/  /   /  /
+    /  \/    \    |     (   /   ??\
+   /          \   |  |\  \ |  (?)  |
+  / __________ \  |__| \__\ \_____/ .io
+
+  execution: local
+     script: k6/k6.js
+     output: -
+
+  scenarios: (100.00%) 1 scenario, 100 max VUs, 40s max duration (incl. graceful stop):
+           * default: 100 looping VUs for 10s (gracefulStop: 30s)
+
+
+     data_received..................: 39 kB 1.4 kB/s
+     data_sent......................: 32 kB 1.2 kB/s
+     http_req_blocked...............: avg=2.13ms   min=1탎   med=1.74ms max=5.7ms  p(90)=5.11ms  p(95)=5.41ms
+     http_req_connecting............: avg=1.17ms   min=0s    med=1.27ms max=2.66ms p(90)=2.31ms  p(95)=2.43ms
+     http_req_duration..............: avg=12.13s   min=1.21s med=11.48s max=26.6s  p(90)=21.76s  p(95)=24.17s
+       { expected_response:true }...: avg=12.13s   min=1.21s med=11.48s max=26.6s  p(90)=21.76s  p(95)=24.17s
+     http_req_failed................: 0.00% ? 0        ? 156
+     http_req_receiving.............: avg=140.97탎 min=28탎  med=107탎  max=800탎  p(90)=244.5탎 p(95)=302.74탎
+     http_req_sending...............: avg=46.71탎  min=11탎  med=38탎   max=264탎  p(90)=79.5탎  p(95)=120.25탎
+     http_req_tls_handshaking.......: avg=0s       min=0s    med=0s     max=0s     p(90)=0s      p(95)=0s
+     http_req_waiting...............: avg=12.13s   min=1.21s med=11.48s max=26.6s  p(90)=21.76s  p(95)=24.17s
+     http_reqs......................: 156   5.607657/s
+     iteration_duration.............: avg=12.13s   min=1.21s med=11.48s max=26.61s p(90)=21.76s  p(95)=24.17s
+     iterations.....................: 156   5.607657/s
+     vus............................: 2     min=2      max=100
+     vus_max........................: 100   min=100    max=100
+
+
+running (27.8s), 000/100 VUs, 156 complete and 0 interrupted iterations
+default ? [======================================] 100 VUs  10s

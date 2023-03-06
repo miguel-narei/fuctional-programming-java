@@ -1,4 +1,4 @@
-package com.miguelnarei.functionalprogramming.declarative.trymonad;
+package com.miguelnarei.functionalprogramming.declarative.async;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
@@ -9,10 +9,11 @@ import static org.mockito.Mockito.when;
 
 import com.miguelnarei.functionalprogramming.declarative.CardDetails;
 import com.miguelnarei.functionalprogramming.declarative.Purchase.CardType;
-import com.miguelnarei.functionalprogramming.imperative.exception.CardException;
-import com.miguelnarei.functionalprogramming.imperative.exception.DbException;
-import com.miguelnarei.functionalprogramming.imperative.exception.PersonException;
+import com.miguelnarei.functionalprogramming.declarative.async.exception.CardException;
+import com.miguelnarei.functionalprogramming.declarative.async.exception.DbException;
+import com.miguelnarei.functionalprogramming.declarative.async.exception.PersonException;
 import io.vavr.control.Try;
+import java.util.concurrent.CompletableFuture;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -27,10 +28,10 @@ class TryUseCaseTest {
 
     public static final String PAN = "1234123412341234";
     @Mock
-    private TryAdapter tryAdapter;
+    private AsyncTryAdapter tryAdapter;
 
     @InjectMocks
-    private TryUseCase tryUseCase;
+    private AsyncTryUseCase tryUseCase;
 
     @ParameterizedTest
     @CsvSource({
@@ -39,36 +40,39 @@ class TryUseCaseTest {
         "true,false,true,Person Error",
         "true,true,false,Db Error"
     })
-    void test(boolean successNif, boolean successPersonId, boolean successSave, String finalStatus)
-        throws CardException, PersonException, DbException {
+    void test(boolean successNif, boolean successPersonId, boolean successSave, String finalStatus) {
 
         mockService(successNif, successPersonId, successSave);
 
         Try.of(() -> tryUseCase.storePurchase(PAN, 5.00))
+            .map(CompletableFuture::join)
             .onFailure(__ -> fail("Should never fail here"))
             .peek(response -> assertThat(response.getStatus()).isEqualTo(finalStatus))
             .filter(p -> "Ok".equals(p.getStatus()))
-            .peek(purchase -> assertThat(purchase.getCard().getCardType()).isEqualTo(CardType.CREDIT))
+            .peek(
+                purchase -> assertThat(purchase.getCard().getCardType()).isEqualTo(CardType.CREDIT))
             .peek(purchase -> assertThat(purchase.getFee()).isEqualTo(5.00 * 0.04));
     }
 
-    private void mockService(boolean successNif, boolean successPersonId, boolean successSave)
-        throws CardException, PersonException, DbException {
+    private void mockService(boolean successNif, boolean successPersonId, boolean successSave) {
         if (successNif) {
             when(tryAdapter.getCardDetails(anyString()))
-                .thenReturn(new CardDetails(PAN, "12345678A", CardType.CREDIT));
+                .thenReturn(CompletableFuture.completedFuture(
+                    new CardDetails(PAN, "12345678A", CardType.CREDIT)));
         } else {
             when(tryAdapter.getCardDetails(anyString())).thenThrow(new CardException());
         }
 
         if (successPersonId) {
-            lenient().when(tryAdapter.getPersonId(anyString())).thenReturn("0000000001");
+            lenient().when(tryAdapter.getPersonId(anyString()))
+                .thenReturn(CompletableFuture.completedFuture("0000000001"));
         } else {
             when(tryAdapter.getPersonId(anyString())).thenThrow(new PersonException());
         }
 
         if (successSave) {
-            when(tryAdapter.saveEntity(any())).thenAnswer(invocation -> invocation.getArgument(0));
+            when(tryAdapter.saveEntity(any())).thenAnswer(
+                invocation -> CompletableFuture.completedFuture(invocation.getArgument(0)));
         } else {
             when(tryAdapter.saveEntity(any())).thenThrow(new DbException());
         }

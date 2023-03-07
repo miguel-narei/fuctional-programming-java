@@ -1,5 +1,9 @@
 package com.miguelnarei.functionalprogramming.declarative.async;
 
+import static com.miguelnarei.functionalprogramming.constants.RestConstants.CARDS_DELAY;
+import static com.miguelnarei.functionalprogramming.constants.RestConstants.DB_DELAY;
+import static com.miguelnarei.functionalprogramming.constants.RestConstants.PERSON_DELAY;
+
 import com.miguelnarei.functionalprogramming.declarative.CardDetails;
 import com.miguelnarei.functionalprogramming.declarative.Purchase;
 import com.miguelnarei.functionalprogramming.declarative.Purchase.CardType;
@@ -20,7 +24,7 @@ public class AsyncTryAdapter {
         return CompletableFuture.supplyAsync(() -> {
             log.info("Getting card details for pan {}", pan);
             try {
-                new CountDownLatch(1).await(800, TimeUnit.MILLISECONDS);
+                new CountDownLatch(1).await(CARDS_DELAY, TimeUnit.MILLISECONDS);
             } catch (InterruptedException e) {
                 throw new CardException();
             }
@@ -32,7 +36,7 @@ public class AsyncTryAdapter {
         return CompletableFuture.supplyAsync(() -> {
             log.info("Getting personId for nif {}", nif);
             try {
-                new CountDownLatch(1).await(300, TimeUnit.MILLISECONDS);
+                new CountDownLatch(1).await(PERSON_DELAY, TimeUnit.MILLISECONDS);
             } catch (InterruptedException e) {
                 throw new PersonException();
             }
@@ -44,7 +48,7 @@ public class AsyncTryAdapter {
         return CompletableFuture.supplyAsync(() -> {
             log.info("Saving entity {}", entity);
             try {
-                new CountDownLatch(1).await(100, TimeUnit.MILLISECONDS);
+                new CountDownLatch(1).await(DB_DELAY, TimeUnit.MILLISECONDS);
             } catch (InterruptedException e) {
                 throw new DbException();
             }

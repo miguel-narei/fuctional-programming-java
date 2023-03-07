@@ -1,5 +1,8 @@
 package com.miguelnarei.functionalprogramming.controller;
 
+import com.miguelnarei.functionalprogramming.controller.model.PurchaseDto;
+import com.miguelnarei.functionalprogramming.controller.model.PurchaseMapper;
+import com.miguelnarei.functionalprogramming.controller.model.PurchaseResonseDto;
 import com.miguelnarei.functionalprogramming.declarative.trymonad.TryUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

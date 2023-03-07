@@ -1,4 +1,4 @@
-package com.miguelnarei.functionalprogramming.controller;
+package com.miguelnarei.functionalprogramming.controller.model;
 
 import com.miguelnarei.functionalprogramming.declarative.Purchase;
 

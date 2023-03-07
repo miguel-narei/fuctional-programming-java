@@ -1,4 +1,4 @@
-package com.miguelnarei.functionalprogramming.controller;
+package com.miguelnarei.functionalprogramming.controller.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
